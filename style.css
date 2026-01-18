@@ -36,27 +36,25 @@ body {
 
 .page-container {
   display: flex;
-  justify-content: flex-start; /* 左侧文案靠近中间 */
+  justify-content: space-between; /* 左右分布 */
   align-items: center;
   min-height: 100vh;
   z-index: 2;
   position: relative;
-  padding: 40px;
+  padding: 0 40px; /* 页面左右边距 */
   perspective: 1000px;
 }
 
 /* 左侧文案 */
 .about-wrapper {
-  flex: 1;
+  flex-basis: 45%; /* 左侧占45%宽度 */
   color: #f3ba2f;
-  max-width: 500px;
   transform-style: preserve-3d;
   transition: transform 0.1s ease;
-  margin-left: 60px; /* 左文案稍微右移 */
 }
 
 .about-title {
-  font-size: 34px;
+  font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -69,12 +67,10 @@ body {
 
 /* 右侧登录框 */
 .login-wrapper {
-  flex: 1;
+  flex-basis: 35%; /* 右侧占35%宽度 */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: auto; /* 推到右边 */
-  margin-right: 40px; /* 离右边留一点空白 */
 }
 
 .language-switch {
@@ -103,7 +99,7 @@ body {
   padding: 50px 40px;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-  width: 380px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
