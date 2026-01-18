@@ -41,24 +41,19 @@ function setLanguage(lang){
   forgotBtn.textContent = t.forgotBtn;
 }
 
-// 修正中英文切换
 document.querySelectorAll('.language-switch button').forEach(btn => {
   btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
 });
 
-// 登录按钮
 loginBtn.addEventListener('click', () => {
-  const email = emailInput.value.trim();
-  const password = passwordInput.value.trim();
   const t = texts[currentLang];
-  if(!email || !password){
+  if(!emailInput.value || !passwordInput.value){
     alert(t.emptyAlert);
   } else {
     alert(t.loginSuccess);
   }
 });
 
-// 注册/忘记密码
 registerBtn.addEventListener('click', () => {
   const t = texts[currentLang];
   alert(`${t.registerBtn} clicked!`);
