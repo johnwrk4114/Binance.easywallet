@@ -22,14 +22,13 @@ const texts = {
 };
 
 let currentLang = 'en';
+
 const pageTitle = document.getElementById('pageTitle');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const loginBtn = document.getElementById('loginBtn');
 const registerBtn = document.getElementById('registerBtn');
 const forgotBtn = document.getElementById('forgotBtn');
-const enBtn = document.getElementById('enBtn');
-const zhBtn = document.getElementById('zhBtn');
 
 function setLanguage(lang){
     currentLang = lang;
@@ -42,9 +41,12 @@ function setLanguage(lang){
     forgotBtn.textContent = t.forgotBtn;
 }
 
-enBtn.addEventListener('click', () => setLanguage('en'));
-zhBtn.addEventListener('click', () => setLanguage('zh'));
+// 修正中英文切换
+document.querySelectorAll('.language-switch button').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
 
+// 登录按钮
 loginBtn.addEventListener('click', () => {
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
@@ -56,6 +58,7 @@ loginBtn.addEventListener('click', () => {
     }
 });
 
+// 注册/忘记密码
 registerBtn.addEventListener('click', () => {
     const t = texts[currentLang];
     alert(`${t.registerBtn} clicked!`);
@@ -66,4 +69,5 @@ forgotBtn.addEventListener('click', () => {
     alert(`${t.forgotBtn} clicked!`);
 });
 
+// 初始化语言
 setLanguage(currentLang);
