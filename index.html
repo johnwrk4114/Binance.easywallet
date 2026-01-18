@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>虚拟货币钱包</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- 确保引用相对路径 -->
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
   <!-- 粒子背景 -->
   <canvas id="particleCanvas"></canvas>
 
-  <!-- 背景 Bitcoin Logo -->
+  <!-- 半透明旋转 Bitcoin Logo -->
   <div class="bg-logo"></div>
 
   <div class="page-container">
-    <!-- 左侧 登录框 -->
     <div class="login-wrapper">
-      <!-- 语言切换 -->
       <div class="language-switch">
         <button data-lang="en">EN</button>
         <button data-lang="zh">中文</button>
@@ -34,25 +34,22 @@
       </div>
     </div>
 
-    <!-- 右侧 About + 手机图片 -->
     <div class="about-wrapper">
-      <div class="about-text">
-        <h2>About Binance.easywallet</h2>
-        <p>
-          Unlock Financial Freedom, Embrace the On-Chain Future<br><br>
-          Cryptocurrencies empower everyone to participate fairly in the economy.<br>
-          Binance.easywallet is on a mission to enhance financial autonomy for over 500 million users.<br>
-          We are transforming traditional finance, providing a secure and trusted platform for individuals and institutions to seamlessly access digital assets — trading, staking, custody, payments, and fast, free global transfers.<br>
-          We support on-chain innovation, collaborating with developers and the global community to promote a responsible crypto ecosystem, enabling everyone to benefit from the blockchain revolution.
-        </p>
-      </div>
+      <h2>About Binance.easywallet</h2>
+      <p>
+        Unlock Financial Freedom, Embrace the On-Chain Future<br><br>
+        Cryptocurrencies empower everyone to participate fairly in the economy.
+        Binance.easywallet is on a mission to enhance financial autonomy for over 500 million users.
+      </p>
       <div class="about-image">
         <img src="https://i.imgur.com/8IhB9AI.png" alt="Crypto Mobile Screenshot">
       </div>
     </div>
   </div>
 
-  <script src="particles.js"></script>
-  <script src="script.js"></script>
+  <!-- 确保脚本使用相对路径 -->
+  <script src="./particles.js"></script>
+  <script src="./script.js"></script>
+
 </body>
 </html>
