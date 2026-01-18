@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>虚拟货币钱包</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>虚拟货币钱包</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 粒子背景 -->
-    <canvas id="particleCanvas"></canvas>
+  <!-- 粒子背景 -->
+  <canvas id="particleCanvas"></canvas>
 
-    <!-- 背景 Bitcoin Logo -->
-    <div class="bg-logo"></div>
+  <!-- 背景 Bitcoin Logo -->
+  <div class="bg-logo"></div>
 
-    <div class="login-wrapper">
-        <!-- 语言切换 -->
-        <div class="language-switch">
-            <button id="enBtn">EN</button>
-            <button id="zhBtn">中文</button>
-        </div>
-
-        <!-- 登录框 -->
-        <div class="login-container">
-            <h2 id="pageTitle">虚拟货币钱包</h2>
-            <input type="text" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <button id="loginBtn">Login</button>
-            <div class="links">
-                <button id="registerBtn">Register</button>
-                <button id="forgotBtn">Forgot Password</button>
-            </div>
-        </div>
+  <div class="login-wrapper">
+    <!-- 语言切换 -->
+    <div class="language-switch">
+      <button data-lang="en">EN</button>
+      <button data-lang="zh">中文</button>
     </div>
 
-    <script src="script.js"></script>
-    <script src="particles.js"></script>
+    <!-- 登录框 -->
+    <div class="login-container">
+      <h2 id="pageTitle">虚拟货币钱包</h2>
+      <input type="text" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <div class="links">
+        <button id="registerBtn">Register</button>
+        <button id="forgotBtn">Forgot Password</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="particles.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
