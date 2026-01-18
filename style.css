@@ -84,7 +84,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 120px; /* 向右移动 */
+  margin-left: 180px; /* 调整为更靠右 */
 }
 
 .language-switch {
