@@ -3,8 +3,14 @@ const ctx = canvas.getContext('2d');
 let particlesArray;
 let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight;
+const mouse = { x: null, y: null };
 
-// 粒子类
+// 鼠标移动追踪
+canvas.addEventListener('mousemove', function(e){
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
+
 class Particle {
     constructor(){
         this.x = Math.random() * width;
@@ -12,14 +18,24 @@ class Particle {
         this.size = Math.random() * 3 + 1;
         this.speedX = (Math.random() - 0.5) * 0.8;
         this.speedY = (Math.random() - 0.5) * 0.8;
-        this.color = 'rgba(243, 186, 47, 0.8)'; // 金色
+        this.color = 'rgba(243,186,47,0.8)';
     }
 
     update(){
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // 边界检测
+        // 鼠标吸引效果
+        if(mouse.x && mouse.y){
+            let dx = this.x - mouse.x;
+            let dy = this.y - mouse.y;
+            let dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 100){
+                this.x -= dx * 0.02;
+                this.y -= dy * 0.02;
+            }
+        }
+
         if(this.x < 0 || this.x > width) this.speedX *= -1;
         if(this.y < 0 || this.y > height) this.speedY *= -1;
     }
@@ -27,20 +43,18 @@ class Particle {
     draw(){
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
         ctx.fill();
     }
 }
 
-// 创建粒子
 function initParticles(){
     particlesArray = [];
-    for(let i=0; i<100; i++){
+    for(let i=0; i<120; i++){
         particlesArray.push(new Particle());
     }
 }
 
-// 画线连接粒子
 function connectParticles(){
     for(let a=0; a<particlesArray.length; a++){
         for(let b=a; b<particlesArray.length; b++){
@@ -59,7 +73,6 @@ function connectParticles(){
     }
 }
 
-// 动画循环
 function animate(){
     ctx.clearRect(0,0,width,height);
     particlesArray.forEach(p => {
@@ -70,13 +83,11 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
-// 监听窗口变化
 window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
     initParticles();
 });
 
-// 初始化
 initParticles();
 animate();
