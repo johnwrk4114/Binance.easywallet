@@ -1,7 +1,7 @@
 // 语言文本
 const texts = {
     en: {
-        pageTitle: "Binance Wallet Login",
+        pageTitle: "Bitcoin Wallet Login",
         email: "Email",
         password: "Password",
         loginBtn: "Login",
@@ -11,7 +11,7 @@ const texts = {
         loginSuccess: "Login successful!"
     },
     zh: {
-        pageTitle: "币安钱包 登录",
+        pageTitle: "比特币钱包 登录",
         email: "邮箱",
         password: "密码",
         loginBtn: "登录",
