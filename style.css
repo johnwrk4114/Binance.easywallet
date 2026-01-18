@@ -1,12 +1,12 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #000000; /* 黑色背景 */
+  background-color: #000000;
   color: #fff;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-/* Canvas 粒子全屏 */
+/* Canvas 粒子 */
 #particleCanvas {
   position: fixed;
   top: 0;
@@ -37,15 +37,24 @@ body {
   100% { transform: translate(-50%, -50%) rotateY(360deg) rotateX(0deg);}
 }
 
-/* 登录框容器 */
-.login-wrapper {
-  position: relative;
+/* 页面双栏布局 */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   z-index: 2;
+  position: relative;
+  padding: 40px;
+}
+
+/* 左侧登录框 */
+.login-wrapper {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  align-items: flex-start; /* 左对齐，但可调整为居中或右移 */
+  margin-right: 60px; /* 向右移 */
 }
 
 /* 语言切换 */
@@ -59,7 +68,7 @@ body {
   border: none;
   border-radius: 6px;
   background: rgba(60, 60, 60, 0.8);
-  color: #f3ba2f; /* 金色 */
+  color: #f3ba2f;
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s;
@@ -80,11 +89,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0;
-  transform: translateY(50px);
   animation: fadeIn 0.8s ease forwards 0.3s;
 }
 
+/* 登录框浮动效果 */
 .login-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.85);
@@ -95,7 +103,7 @@ body {
   margin-bottom: 30px;
   font-size: 26px;
   font-weight: bold;
-  color: #f3ba2f; /* 金色 */
+  color: #f3ba2f;
 }
 
 /* 输入框 */
@@ -164,4 +172,34 @@ body {
 @keyframes fadeIn {
   0% {opacity: 0; transform: translateY(50px);}
   100% {opacity: 1; transform: translateY(0);}
+}
+
+/* 右侧 About */
+.about-wrapper {
+  flex: 1;
+  color: #f3ba2f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-wrapper h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.about-wrapper p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* 手机截图 */
+.about-image {
+  margin-top: 30px;
+}
+
+.about-image img {
+  max-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 }
