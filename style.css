@@ -1,3 +1,39 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.bg-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg') no-repeat center center;
+  background-size: contain;
+  opacity: 0.05;
+  transform: translate(-50%, -50%) rotateY(0deg);
+  animation: rotateLogo 60s linear infinite;
+  z-index: 1;
+}
+
+@keyframes rotateLogo {
+  0% { transform: translate(-50%, -50%) rotateY(0deg);}
+  100% { transform: translate(-50%, -50%) rotateY(360deg);}
+}
+
 .page-container {
   display: flex;
   justify-content: flex-start; /* 左侧文案靠近中间 */
@@ -9,7 +45,7 @@
   perspective: 1000px;
 }
 
-/* 左侧 About */
+/* 左侧文案 */
 .about-wrapper {
   flex: 1;
   color: #f3ba2f;
@@ -19,12 +55,120 @@
   margin-left: 60px; /* 左文案稍微右移 */
 }
 
+.about-title {
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.about-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #f3d580;
+}
+
 /* 右侧登录框 */
 .login-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: auto; /* 自动填充左侧空间，把登录框推到最右边 */
-  margin-right: 40px; /* 离右边留一点边距 */
+  margin-left: auto; /* 推到右边 */
+  margin-right: 40px; /* 离右边留一点空白 */
+}
+
+.language-switch {
+  margin-bottom: 20px;
+}
+
+.language-switch button {
+  margin: 0 5px;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(60, 60, 60, 0.8);
+  color: #f3ba2f;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.language-switch button:hover {
+  background: rgba(90, 90, 90, 0.8);
+  transform: translateY(-2px);
+}
+
+.login-container {
+  background: rgba(20,20,20,0.95);
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-container h2 {
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #f3ba2f;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 12px;
+  background: rgba(40,40,40,0.9);
+  color: #fff;
+  font-size: 16px;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.login-container input:focus {
+  outline: none;
+  box-shadow: 0 0 20px #f3ba2f;
+  transform: scale(1.02);
+}
+
+#loginBtn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #f3ba2f 0%, #f0b90b 100%);
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#loginBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #f3ba2f;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.links button {
+  border: none;
+  background: none;
+  color: #f3ba2f;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.links button:hover {
+  text-decoration: underline;
+  transform: translateY(-2px);
 }
