@@ -1,36 +1,39 @@
-/* Canvas 粒子覆盖全屏 */
-#particleCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚拟货币钱包</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <canvas id="particleCanvas"></canvas>
 
-/* 背景 Bitcoin Logo */
-.bg-logo {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 120%;
-    height: 120%;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg') no-repeat center center;
-    background-size: contain;
-    opacity: 0.05;
-    transform: translate(-50%, -50%) rotateY(0deg);
-    animation: rotateLogo 60s linear infinite;
-    z-index: 1;
-}
+    <!-- 背景 Bitcoin Logo -->
+    <div class="bg-logo"></div>
 
-/* 登录框层 */
-.login-wrapper {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: fadeIn 1s ease forwards;
-}
+    <div class="login-wrapper">
+        <!-- 语言切换 -->
+        <div class="language-switch">
+            <button id="enBtn">EN</button>
+            <button id="zhBtn">中文</button>
+        </div>
 
-/* 其他登录框、按钮、输入框样式保留上一个版本即可 */
+        <!-- 登录框 -->
+        <div class="login-container">
+            <h2 id="pageTitle">虚拟货币钱包</h2>
+            <input type="text" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button id="loginBtn">Login</button>
+            <div class="links">
+                <button id="registerBtn">Register</button>
+                <button id="forgotBtn">Forgot Password</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="particles.js"></script>
+</body>
+</html>
