@@ -23,8 +23,6 @@ class Particle {
     update(){
         this.x += this.speedX;
         this.y += this.speedY;
-
-        // 鼠标吸引效果
         if(mouse.x && mouse.y){
             let dx = this.x - mouse.x;
             let dy = this.y - mouse.y;
@@ -34,7 +32,6 @@ class Particle {
                 this.y -= dy * 0.02;
             }
         }
-
         if(this.x < 0 || this.x > width) this.speedX *= -1;
         if(this.y < 0 || this.y > height) this.speedY *= -1;
     }
@@ -74,10 +71,7 @@ function connectParticles(){
 
 function animate(){
     ctx.clearRect(0,0,width,height);
-    particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-    });
+    particlesArray.forEach(p => { p.update(); p.draw(); });
     connectParticles();
     requestAnimationFrame(animate);
 }
