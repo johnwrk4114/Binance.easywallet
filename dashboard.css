@@ -27,17 +27,16 @@ body {
   margin-bottom: 40px;
 }
 
-.sidebar nav a {
+.sidebar a {
   display: block;
   padding: 12px;
   margin-bottom: 10px;
-  color: #aaa;
-  cursor: pointer;
+  color: #888;
   border-radius: 8px;
 }
 
-.sidebar nav a.active,
-.sidebar nav a:hover {
+.sidebar a.active,
+.sidebar a:hover {
   background: rgba(255,215,0,0.15);
   color: gold;
 }
@@ -45,96 +44,94 @@ body {
 /* Main */
 .main {
   flex: 1;
-  padding: 20px 30px;
+  padding: 25px 35px;
+  overflow-y: auto;
 }
 
 /* Topbar */
 .topbar {
   display: flex;
+  justify-content: flex-end;
+  margin-bottom: 25px;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(145deg, #0d0d0d, #151515);
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 0 30px rgba(255,215,0,0.04);
+}
+
+/* Total Balance */
+.total-balance {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 30px;
 }
 
-.market span {
-  margin-right: 20px;
-}
-
-.up { color: #00ff9c; }
-.down { color: #ff4d4d; }
-
-/* Dashboard grid */
-.dashboard {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 25px;
-}
-
-.card {
-  background: linear-gradient(145deg, #0d0d0d, #141414);
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 0 40px rgba(255,215,0,0.05);
-}
-
-.card h3 {
-  margin-bottom: 20px;
+.total-balance h1 {
+  font-size: 36px;
   color: gold;
 }
 
-/* Trade */
-.trade select,
-.trade input {
-  width: 100%;
-  padding: 12px;
-  background: #000;
+/* Assets */
+.assets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.asset span {
+  color: #aaa;
+}
+
+.asset strong {
+  font-size: 22px;
+  display: block;
+  margin: 6px 0;
+}
+
+.asset em {
+  font-size: 14px;
+  color: #777;
+}
+
+.asset.active {
+  border: 1px solid gold;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 14px;
+  background: #111;
   border: 1px solid #333;
   color: #fff;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  border-radius: 10px;
 }
 
-.tabs {
-  display: flex;
-  margin-bottom: 15px;
-}
-
-.tabs button {
-  flex: 1;
-  background: #111;
-  border: none;
-  color: #aaa;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.tabs button.active {
+.primary {
   background: gold;
   color: #000;
 }
 
-.primary {
-  width: 100%;
-  padding: 14px;
-  background: gold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+.danger {
+  background: #a10000;
 }
 
-/* Wallet */
-.wallet ul {
-  list-style: none;
-}
-
-.wallet li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-/* Transactions */
-.transactions {
-  grid-column: span 2;
+/* Market */
+.market h3 {
+  margin-bottom: 15px;
+  color: gold;
 }
 
 table {
@@ -148,5 +145,5 @@ th, td {
   text-align: left;
 }
 
-.done { color: #00ff9c; }
-.pending { color: gold; }
+.up { color: #00ff9c; }
+.down { color: #ff4d4d; }
