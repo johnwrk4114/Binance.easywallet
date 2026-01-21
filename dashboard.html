@@ -26,10 +26,13 @@
 
     <!-- Top Bar -->
     <header class="topbar">
-      <div class="user">JOHNWRK4114</div>
+      <div class="user">
+        JOHNWRK4114
+        <button class="logout" onclick="logout()">Log out</button>
+      </div>
     </header>
 
-    <!-- ===== Total Balance ===== -->
+    <!-- Total Balance -->
     <section class="total-balance card">
       <div>
         <h3>Total Balance</h3>
@@ -42,71 +45,43 @@
       </svg>
     </section>
 
-    <!-- ===== Assets ===== -->
+    <!-- Account Metrics -->
     <section class="assets">
       <div class="card asset active">
-        <span>BTC</span>
-        <strong>0.0123</strong>
-        <em>$520.00</em>
-        <svg viewBox="0 0 100 30">
-          <polyline points="0,18 15,16 30,20 45,14 60,16 75,10 90,8"
-            fill="none" stroke="gold" stroke-width="2"/>
-        </svg>
+        <span>E-Wallet</span>
+        <strong>$5,200.00</strong>
+        <em>Main wallet balance</em>
       </div>
 
       <div class="card asset">
-        <span>ETH</span>
-        <strong>1.204</strong>
-        <em>$2,340.00</em>
-        <svg viewBox="0 0 100 30">
-          <polyline points="0,12 20,14 40,10 60,13 80,11"
-            fill="none" stroke="#666" stroke-width="2"/>
-        </svg>
+        <span>Cash Equity</span>
+        <strong>$6,800.00</strong>
+        <em>Available equity</em>
       </div>
 
       <div class="card asset">
-        <span>USDT</span>
-        <strong>3,200</strong>
-        <em>$3,200.00</em>
-        <svg viewBox="0 0 100 30">
-          <polyline points="0,15 100,15"
-            fill="none" stroke="#444" stroke-width="2"/>
-        </svg>
+        <span>Coin ROI</span>
+        <strong class="up">+18.4%</strong>
+        <em>Total return</em>
       </div>
     </section>
 
-    <!-- ===== Quick Actions ===== -->
-    <section class="actions">
-      <button>Deposit</button>
-      <button>Withdraw</button>
-      <button class="primary">Buy</button>
-      <button class="danger">Sell</button>
-    </section>
-
-    <!-- ===== Market Table ===== -->
+    <!-- Market Overview -->
     <section class="card market">
       <h3>Market Overview</h3>
       <table>
-        <tr>
-          <th>Asset</th>
-          <th>Price</th>
-          <th>24h</th>
-        </tr>
-        <tr>
-          <td>BTC</td>
-          <td>$42,350</td>
-          <td class="up">+2.4%</td>
-        </tr>
-        <tr>
-          <td>ETH</td>
-          <td>$2,280</td>
-          <td class="down">-1.1%</td>
-        </tr>
-        <tr>
-          <td>SOL</td>
-          <td>$98.40</td>
-          <td class="up">+4.9%</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>Price (USD)</th>
+            <th>24h</th>
+          </tr>
+        </thead>
+        <tbody id="market-data">
+          <tr>
+            <td colspan="3">Loading market data…</td>
+          </tr>
+        </tbody>
       </table>
     </section>
 
