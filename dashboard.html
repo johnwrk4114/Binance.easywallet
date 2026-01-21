@@ -2,94 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Wallet Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./dashboard.css" />
+  <title>Trading Wallet Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="topbar">
-    <div class="logo">Binance.easywallet</div>
-    <div class="user-area">
-      <span class="user-email">user@email.com</span>
-      <button class="logout-btn">Logout</button>
-    </div>
-  </header>
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Crypto Wallet</h2>
+    <nav>
+      <a class="active">Dashboard</a>
+      <a>Buy & Sell</a>
+      <a>Deposit & Withdraw</a>
+      <a>Transactions</a>
+      <a>Profile</a>
+    </nav>
+  </aside>
 
   <!-- Main -->
-  <main class="dashboard">
+  <main class="main">
 
-    <!-- Total Balance -->
-    <section class="balance-section">
-      <h2>Total Balance</h2>
-      <div class="total-balance">$ 128,450.23</div>
-      <div class="balance-sub">≈ 3.24 BTC</div>
-    </section>
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="market">
+        <span>BTC <strong>$42,350</strong> <em class="up">+2.4%</em></span>
+        <span>ETH <strong>$2,280</strong> <em class="down">-1.1%</em></span>
+        <span>USDT <strong>$1.00</strong></span>
+      </div>
+      <div class="user">JOHNWRK4114</div>
+    </header>
 
-    <!-- Asset Cards -->
-    <section class="assets-grid">
-      <div class="asset-card">
-        <span class="asset-name">Bitcoin (BTC)</span>
-        <span class="asset-amount">1.245 BTC</span>
-        <span class="asset-value">$ 82,300</span>
+    <!-- Dashboard Content -->
+    <section class="dashboard">
+
+      <!-- Buy Sell -->
+      <div class="card trade">
+        <h3>Buy / Sell</h3>
+
+        <div class="tabs">
+          <button class="active">Buy</button>
+          <button>Sell</button>
+        </div>
+
+        <label>Coin</label>
+        <select>
+          <option>BTC</option>
+          <option>ETH</option>
+          <option>USDT</option>
+        </select>
+
+        <label>Amount</label>
+        <input type="number" placeholder="0.00" />
+
+        <button class="primary">Buy BTC</button>
       </div>
 
-      <div class="asset-card">
-        <span class="asset-name">Ethereum (ETH)</span>
-        <span class="asset-amount">12.80 ETH</span>
-        <span class="asset-value">$ 34,900</span>
+      <!-- Wallet -->
+      <div class="card wallet">
+        <h3>Wallet Balance</h3>
+        <ul>
+          <li><span>BTC</span><strong>0.0000</strong></li>
+          <li><span>ETH</span><strong>0.0000</strong></li>
+          <li><span>USDT</span><strong>0.00</strong></li>
+        </ul>
       </div>
 
-      <div class="asset-card">
-        <span class="asset-name">USDT</span>
-        <span class="asset-amount">11,250 USDT</span>
-        <span class="asset-value">$ 11,250</span>
-      </div>
-    </section>
-
-    <!-- Transactions -->
-    <section class="tx-section">
-      <h3>Recent Transactions</h3>
-
-      <table class="tx-table">
-        <thead>
+      <!-- Transactions -->
+      <div class="card transactions">
+        <h3>Recent Transactions</h3>
+        <table>
           <tr>
-            <th>Date</th>
             <th>Type</th>
             <th>Asset</th>
             <th>Amount</th>
             <th>Status</th>
           </tr>
-        </thead>
-        <tbody>
           <tr>
-            <td>2026-01-18</td>
-            <td>Deposit</td>
+            <td>Buy</td>
             <td>BTC</td>
-            <td>+0.015</td>
-            <td class="status success">Completed</td>
+            <td>0.01</td>
+            <td class="done">Completed</td>
           </tr>
           <tr>
-            <td>2026-01-17</td>
-            <td>Withdraw</td>
-            <td>ETH</td>
-            <td>-1.20</td>
-            <td class="status pending">Pending</td>
-          </tr>
-          <tr>
-            <td>2026-01-16</td>
-            <td>Transfer</td>
+            <td>Deposit</td>
             <td>USDT</td>
-            <td>-2,500</td>
-            <td class="status success">Completed</td>
+            <td>500</td>
+            <td class="pending">Pending</td>
           </tr>
-        </tbody>
-      </table>
+        </table>
+      </div>
+
     </section>
-
   </main>
+</div>
 
-  <script src="./dashboard.js"></script>
+<script src="dashboard.js"></script>
 </body>
 </html>
