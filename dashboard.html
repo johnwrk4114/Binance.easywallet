@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Trading Wallet Dashboard</title>
+  <title>Wallet Dashboard</title>
   <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
@@ -26,75 +26,90 @@
 
     <!-- Top Bar -->
     <header class="topbar">
-      <div class="market">
-        <span>BTC <strong>$42,350</strong> <em class="up">+2.4%</em></span>
-        <span>ETH <strong>$2,280</strong> <em class="down">-1.1%</em></span>
-        <span>USDT <strong>$1.00</strong></span>
-      </div>
       <div class="user">JOHNWRK4114</div>
     </header>
 
-    <!-- Dashboard Content -->
-    <section class="dashboard">
-
-      <!-- Buy Sell -->
-      <div class="card trade">
-        <h3>Buy / Sell</h3>
-
-        <div class="tabs">
-          <button class="active">Buy</button>
-          <button>Sell</button>
-        </div>
-
-        <label>Coin</label>
-        <select>
-          <option>BTC</option>
-          <option>ETH</option>
-          <option>USDT</option>
-        </select>
-
-        <label>Amount</label>
-        <input type="number" placeholder="0.00" />
-
-        <button class="primary">Buy BTC</button>
+    <!-- ===== Total Balance ===== -->
+    <section class="total-balance card">
+      <div>
+        <h3>Total Balance</h3>
+        <h1>$12,480.50</h1>
+        <span class="up">+2.35% today</span>
       </div>
-
-      <!-- Wallet -->
-      <div class="card wallet">
-        <h3>Wallet Balance</h3>
-        <ul>
-          <li><span>BTC</span><strong>0.0000</strong></li>
-          <li><span>ETH</span><strong>0.0000</strong></li>
-          <li><span>USDT</span><strong>0.00</strong></li>
-        </ul>
-      </div>
-
-      <!-- Transactions -->
-      <div class="card transactions">
-        <h3>Recent Transactions</h3>
-        <table>
-          <tr>
-            <th>Type</th>
-            <th>Asset</th>
-            <th>Amount</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>Buy</td>
-            <td>BTC</td>
-            <td>0.01</td>
-            <td class="done">Completed</td>
-          </tr>
-          <tr>
-            <td>Deposit</td>
-            <td>USDT</td>
-            <td>500</td>
-            <td class="pending">Pending</td>
-          </tr>
-        </table>
-      </div>
-
+      <svg viewBox="0 0 100 30" class="mini-chart">
+        <polyline points="0,20 10,18 20,22 30,15 40,18 50,10 60,12 70,8 80,10 90,6"
+          fill="none" stroke="gold" stroke-width="2"/>
+      </svg>
     </section>
+
+    <!-- ===== Assets ===== -->
+    <section class="assets">
+      <div class="card asset active">
+        <span>BTC</span>
+        <strong>0.0123</strong>
+        <em>$520.00</em>
+        <svg viewBox="0 0 100 30">
+          <polyline points="0,18 15,16 30,20 45,14 60,16 75,10 90,8"
+            fill="none" stroke="gold" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="card asset">
+        <span>ETH</span>
+        <strong>1.204</strong>
+        <em>$2,340.00</em>
+        <svg viewBox="0 0 100 30">
+          <polyline points="0,12 20,14 40,10 60,13 80,11"
+            fill="none" stroke="#666" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="card asset">
+        <span>USDT</span>
+        <strong>3,200</strong>
+        <em>$3,200.00</em>
+        <svg viewBox="0 0 100 30">
+          <polyline points="0,15 100,15"
+            fill="none" stroke="#444" stroke-width="2"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== Quick Actions ===== -->
+    <section class="actions">
+      <button>Deposit</button>
+      <button>Withdraw</button>
+      <button class="primary">Buy</button>
+      <button class="danger">Sell</button>
+    </section>
+
+    <!-- ===== Market Table ===== -->
+    <section class="card market">
+      <h3>Market Overview</h3>
+      <table>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>24h</th>
+        </tr>
+        <tr>
+          <td>BTC</td>
+          <td>$42,350</td>
+          <td class="up">+2.4%</td>
+        </tr>
+        <tr>
+          <td>ETH</td>
+          <td>$2,280</td>
+          <td class="down">-1.1%</td>
+        </tr>
+        <tr>
+          <td>SOL</td>
+          <td>$98.40</td>
+          <td class="up">+4.9%</td>
+        </tr>
+      </table>
+    </section>
+
   </main>
 </div>
 
