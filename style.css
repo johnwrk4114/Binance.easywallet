@@ -1,180 +1,112 @@
-/* ----------------- 基础样式 ----------------- */
-body {
+* {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: #000;
-  color: #fff;
-  overflow-x: hidden;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#particleCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+body {
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle, #0b0b0b, #000);
+  color: #f5d27a;
 }
 
-/* ----------------- 半透明旋转 Bitcoin Logo ----------------- */
-.bg-logo {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 120%;
-  height: 120%;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg') no-repeat center center;
-  background-size: contain;
-  opacity: 0.05;
-  transform: translate(-50%, -50%) rotateY(0deg);
-  animation: rotateLogo 60s linear infinite;
-  z-index: 1;
+.dashboard {
+  padding: 20px 40px;
 }
 
-@keyframes rotateLogo {
-  0% { transform: translate(-50%, -50%) rotateY(0deg);}
-  100% { transform: translate(-50%, -50%) rotateY(360deg);}
-}
-
-/* ----------------- 页面容器 ----------------- */
-.page-container {
-  display: flex;
-  justify-content: space-between; /* 左右分布 */
-  align-items: center;
-  min-height: 100vh;
-  z-index: 2;
-  position: relative;
-  padding: 0 60px; /* 页面左右边距，增加视觉平衡 */
-  perspective: 1000px;
-}
-
-/* ----------------- 左侧文案 ----------------- */
-.about-wrapper {
-  flex-basis: 48%; /* 左侧宽度略增加，让文案靠近中间 */
-  color: #f3ba2f;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease;
-  margin-left: 40px; /* 文案整体向右一点 */
-}
-
-.about-title {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.about-text {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #f3d580;
-}
-
-/* ----------------- 右侧登录框 ----------------- */
-.login-wrapper {
-  flex-basis: 35%; /* 登录框宽度 */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: auto; /* 推到右边 */
-  margin-right: 80px; /* 离右边适当距离 */
-}
-
-/* ----------------- 语言切换 ----------------- */
-.language-switch {
-  margin-bottom: 20px;
-}
-
-.language-switch button {
-  margin: 0 5px;
-  padding: 6px 16px;
-  border: none;
-  border-radius: 6px;
-  background: rgba(60, 60, 60, 0.8);
-  color: #f3ba2f;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s;
-}
-
-.language-switch button:hover {
-  background: rgba(90, 90, 90, 0.8);
-  transform: translateY(-2px);
-}
-
-/* ----------------- 登录框 ----------------- */
-.login-container {
-  background: rgba(20,20,20,0.95);
-  padding: 50px 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.login-container h2 {
-  margin-bottom: 30px;
-  font-size: 26px;
-  font-weight: bold;
-  color: #f3ba2f;
-}
-
-.login-container input[type="text"],
-.login-container input[type="password"] {
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  border: none;
-  border-radius: 12px;
-  background: rgba(40,40,40,0.9);
-  color: #fff;
-  font-size: 16px;
-  transition: box-shadow 0.3s, transform 0.2s;
-}
-
-.login-container input:focus {
-  outline: none;
-  box-shadow: 0 0 20px #f3ba2f;
-  transform: scale(1.02);
-}
-
-/* ----------------- 登录按钮 ----------------- */
-#loginBtn {
-  width: 100%;
-  padding: 14px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #f3ba2f 0%, #f0b90b 100%);
-  color: #000;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-#loginBtn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #f3ba2f;
-}
-
-/* ----------------- 注册/忘记密码 ----------------- */
-.links {
+/* 顶部 */
+.topbar {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  margin-top: 18px;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.links button {
-  border: none;
-  background: none;
-  color: #f3ba2f;
+/* 中英文切换 */
+.lang-switch {
+  padding: 8px 14px;
+  border: 1px solid #f5d27a;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
+  transition: all 0.25s ease;
 }
 
-.links button:hover {
-  text-decoration: underline;
-  transform: translateY(-2px);
+.lang-switch:hover {
+  background: rgba(245, 210, 122, 0.15);
+  box-shadow: 0 0 10px rgba(245, 210, 122, 0.6);
+  transform: translateY(-1px);
+}
+
+/* 用户区 */
+.user-area {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #f5d27a;
+  color: #f5d27a;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #f5d27a;
+  color: #000;
+}
+
+/* 主布局 */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 30px;
+}
+
+/* 卡片 */
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(245,210,122,0.3);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+/* Total */
+.total-balance .balance {
+  font-size: 28px;
+  margin-top: 10px;
+}
+
+/* 三个资产卡 */
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.asset-card h4 {
+  margin-bottom: 8px;
+}
+
+/* 市场 */
+.market-search {
+  width: 100%;
+  padding: 8px;
+  margin: 15px 0;
+  background: #000;
+  border: 1px solid #f5d27a;
+  color: #f5d27a;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(245,210,122,0.2);
 }
