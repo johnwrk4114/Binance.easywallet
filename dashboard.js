@@ -1,41 +1,45 @@
-// Log out
+// ===== Logout =====
 function logout() {
   window.location.href = "index.html";
 }
 
-// Real-time market data (CoinGecko)
-const coins = {
+// ===== Market Data (CoinGecko Public API) =====
+const COINS = {
   bitcoin: "BTC",
   ethereum: "ETH",
-  solana: "SOL",
-  binancecoin: "BNB"
+  binancecoin: "BNB",
+  solana: "SOL"
 };
 
 async function loadMarket() {
-  try {
-    const res = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin&vs_currencies=usd&include_24hr_change=true"
-    );
-    const data = await res.json();
+  const tbody = document.getElementById("market-data");
 
-    const tbody = document.getElementById("market-data");
+  try {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/simple/price" +
+      "?ids=bitcoin,ethereum,binancecoin,solana" +
+      "&vs_currencies=usd" +
+      "&include_24hr_change=true"
+    );
+
+    const data = await response.json();
     tbody.innerHTML = "";
 
-    for (const id in coins) {
+    for (const id in COINS) {
       const price = data[id].usd.toFixed(2);
       const change = data[id].usd_24h_change.toFixed(2);
       const cls = change >= 0 ? "up" : "down";
 
       tbody.innerHTML += `
         <tr>
-          <td>${coins[id]}</td>
+          <td>${COINS[id]}</td>
           <td>$${price}</td>
           <td class="${cls}">${change}%</td>
         </tr>
       `;
     }
-  } catch (e) {
-    document.getElementById("market-data").innerHTML =
+  } catch (err) {
+    tbody.innerHTML =
       "<tr><td colspan='3'>Failed to load market data</td></tr>";
   }
 }
