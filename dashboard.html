@@ -2,88 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Wallet Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css" />
+  <title>Dashboard | EasyWallet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="app">
+<div class="dashboard">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2 class="logo">Crypto Wallet</h2>
-    <nav>
-      <a class="active" data-i18n="dashboard">Dashboard</a>
-      <a data-i18n="buySell">Buy & Sell</a>
-      <a data-i18n="depositWithdraw">Deposit & Withdraw</a>
-      <a data-i18n="transactions">Transactions</a>
-      <a data-i18n="profile">Profile</a>
-    </nav>
-  </aside>
+  <!-- 顶部栏 -->
+  <header class="topbar">
+    <div class="lang-switch" id="langSwitch">EN | 中文</div>
 
-  <main class="main">
+    <div class="user-area">
+      <span id="userEmail">user@email.com</span>
+      <button class="logout-btn">Logout</button>
+    </div>
+  </header>
 
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="user">
-        <button class="lang-btn" onclick="toggleLang()">EN / 中文</button>
-        <span>johnwrk4114@email.com</span>
-        <button class="logout" onclick="logout()">Log out</button>
-      </div>
-    </header>
+  <!-- 主内容 -->
+  <main class="main-grid">
 
-    <!-- Balance + Actions -->
-    <section class="balance-row">
+    <!-- 左侧资产区 -->
+    <section class="wallet-section">
 
       <!-- Total Balance -->
       <div class="card total-balance">
-        <h3 data-i18n="totalBalance">Total Balance</h3>
-        <h1>$12,480.50</h1>
-        <span class="up">+2.35%</span>
+        <h3>Total Balance</h3>
+        <p class="balance">$128,420.55</p>
       </div>
 
-      <!-- Wallet Actions -->
-      <div class="card wallet-actions">
-        <h3 data-i18n="walletActions">Wallet Actions</h3>
-
-        <div class="action-buttons">
-          <button data-i18n="pay">Pay</button>
-          <button data-i18n="receive">Receive</button>
+      <!-- 三个资产卡（你缺失的） -->
+      <div class="asset-grid">
+        <div class="card asset-card">
+          <h4>E-wallet</h4>
+          <p>$32,500</p>
         </div>
-
-        <div class="link-box">
-          <input id="walletLink" readonly />
-          <button onclick="generateLink()" data-i18n="generate">Generate</button>
+        <div class="card asset-card">
+          <h4>Cash Equity</h4>
+          <p>$45,120</p>
+        </div>
+        <div class="card asset-card">
+          <h4>Coin ROI</h4>
+          <p>+18.6%</p>
         </div>
       </div>
 
     </section>
 
-    <!-- Market -->
-    <section class="card market">
-      <div class="market-header">
-        <h3 data-i18n="market">Market Overview</h3>
+    <!-- 右侧市场 -->
+    <section class="market-section">
+      <div class="card market-overview">
+        <h3>Market Overview</h3>
+
         <input
           type="text"
           placeholder="Search coin..."
-          oninput="filterMarket(this.value)"
+          class="market-search"
         />
-      </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th data-i18n="asset">Asset</th>
-            <th data-i18n="price">Price (USD)</th>
-            <th data-i18n="change">24h Change</th>
-            <th data-i18n="trend">Trend</th>
-          </tr>
-        </thead>
-        <tbody id="market-data"></tbody>
-      </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Asset</th>
+              <th>Price (USD)</th>
+              <th>24h</th>
+              <th>Chart</th>
+            </tr>
+          </thead>
+          <tbody id="marketTable"></tbody>
+        </table>
+      </div>
     </section>
 
   </main>
+
 </div>
 
 <script src="dashboard.js"></script>
