@@ -24,42 +24,46 @@
   <!-- Main -->
   <main class="main">
 
-    <!-- Top Bar -->
+    <!-- Topbar -->
     <header class="topbar">
       <div class="user">
-        JOHNWRK4114
+        <span>JOHNWRK4114</span>
         <button class="logout" onclick="logout()">Log out</button>
       </div>
     </header>
 
     <!-- Total Balance -->
-    <section class="total-balance card">
-      <div>
+    <section class="card total-balance">
+      <div class="total-left">
         <h3>Total Balance</h3>
         <h1>$12,480.50</h1>
         <span class="up">+2.35% today</span>
       </div>
-      <svg viewBox="0 0 100 30" class="mini-chart">
-        <polyline points="0,20 10,18 20,22 30,15 40,18 50,10 60,12 70,8 80,10 90,6"
-          fill="none" stroke="gold" stroke-width="2"/>
+      <svg class="mini-chart" viewBox="0 0 100 30">
+        <polyline
+          points="0,20 10,18 20,22 30,15 40,18 50,10 60,12 70,8 80,10 90,6"
+          fill="none"
+          stroke="gold"
+          stroke-width="2"
+        />
       </svg>
     </section>
 
     <!-- Account Metrics -->
-    <section class="assets">
-      <div class="card asset active">
+    <section class="metrics">
+      <div class="card metric active">
         <span>E-Wallet</span>
         <strong>$5,200.00</strong>
         <em>Main wallet balance</em>
       </div>
 
-      <div class="card asset">
+      <div class="card metric">
         <span>Cash Equity</span>
         <strong>$6,800.00</strong>
         <em>Available equity</em>
       </div>
 
-      <div class="card asset">
+      <div class="card metric">
         <span>Coin ROI</span>
         <strong class="up">+18.4%</strong>
         <em>Total return</em>
@@ -74,7 +78,7 @@
           <tr>
             <th>Asset</th>
             <th>Price (USD)</th>
-            <th>24h</th>
+            <th>24h Change</th>
           </tr>
         </thead>
         <tbody id="market-data">
