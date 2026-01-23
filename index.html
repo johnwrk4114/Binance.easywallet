@@ -426,7 +426,9 @@
             
             // Redirect to dashboard after delay
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                // Redirect to dashboard with a default user
+const defaultUser = 'demo_user_' + Math.floor(Math.random() * 1000);
+window.location.href = 'dashboard.html?user=' + defaultUser;
             }, 1500);
         });
 
