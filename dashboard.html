@@ -1,83 +1,1292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dashboard | EasyWallet</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoWallet Pro | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --secondary: #f59e0b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.95);
+            border-right: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-profile {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-email {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0 16px;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            background: rgba(14, 165, 233, 0.1);
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: var(--light);
+            text-decoration: none;
+            font-size: 15px;
+            gap: 12px;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-text {
+            flex: 1;
+        }
+
+        .nav-badge {
+            background: var(--success);
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            padding: 20px 30px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+            background: rgba(30, 41, 59, 0.6);
+            padding: 6px;
+            border-radius: var(--radius-md);
+        }
+
+        .lang-btn {
+            padding: 6px 16px;
+            border: none;
+            background: transparent;
+            color: var(--gray);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+            padding: 10px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* ===== DASHBOARD CONTENT ===== */
+        .dashboard-content {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* ===== BALANCE SECTION ===== */
+        .balance-cards {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .balance-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .balance-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .balance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .balance-label {
+            color: var(--gray);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .balance-label i {
+            margin-right: 8px;
+        }
+
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .trend-indicator.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .trend-indicator.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .balance-amount {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .balance-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .balance-change {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .change-amount {
+            font-weight: 600;
+        }
+
+        .change-amount.positive {
+            color: var(--success);
+        }
+
+        .change-amount.negative {
+            color: var(--danger);
+        }
+
+        .change-period {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .balance-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .refresh-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--card-border);
+            color: var(--light);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .refresh-btn.refreshing i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== WALLET ACTIONS ===== */
+        .actions-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .actions-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .actions-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .action-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .action-desc {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+
+        .action-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        /* ===== MARKET SECTION ===== */
+        .market-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .market-table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--card-border);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .market-table th {
+            text-align: left;
+            padding: 16px;
+            color: var(--gray);
+            font-weight: 600;
+            border-bottom: 1px solid var(--card-border);
+            white-space: nowrap;
+            background: rgba(30, 41, 59, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .market-table td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .market-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .market-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .sortable:hover {
+            color: var(--light);
+        }
+
+        .positive { color: var(--success); }
+        .negative { color: var(--danger); }
+
+        /* ===== ACTIVITIES CONTAINER ===== */
+        .activities-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .activities-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .activity-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-content {
+                padding: 20px 15px;
+            }
+            
+            .top-bar {
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .top-bar-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 40px;
+            color: var(--gray);
+        }
+
+        .fa-spin {
+            animation: fa-spin 2s infinite linear;
+        }
+
+        @keyframes fa-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-
-<div class="dashboard">
-
-  <!-- 顶部栏 -->
-  <header class="topbar">
-    <div class="lang-switch" id="langSwitch">EN | 中文</div>
-
-    <div class="user-area">
-      <span id="userEmail">user@email.com</span>
-      <button class="logout-btn">Logout</button>
+    <!-- No User Warning -->
+    <div class="no-user-warning" id="noUserWarning" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 40px;">
+        <h2 style="font-size: 32px; margin-bottom: 20px; color: var(--danger);">⚠️ User Identification Required</h2>
+        <p style="font-size: 18px; margin-bottom: 30px; max-width: 600px; line-height: 1.6;">
+            This dashboard requires a user identifier to load your personal data.<br>
+            Please access this page with a <code>?user=USERNAME</code> parameter in the URL.
+        </p>
+        <p><strong>Example:</strong></p>
+        <a href="?user=alex_johnson" style="color: var(--primary); background: rgba(14, 165, 233, 0.1); padding: 10px 20px; border-radius: var(--radius-md); margin-top: 20px; font-family: monospace; text-decoration: none; border: 1px solid var(--primary); transition: all 0.3s;">dashboard.html?user=alex_johnson</a>
+        <p style="margin-top: 30px; color: var(--gray);">Each user will have completely separate wallets and transaction history.</p>
     </div>
-  </header>
 
-  <!-- 主内容 -->
-  <main class="main-grid">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="logo-text">CryptoWallet Pro</div>
+                </div>
+            </div>
 
-    <!-- 左侧资产区 -->
-    <section class="wallet-section">
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">User: <span id="currentUserName">Loading...</span></div>
+                    <div class="user-email">ID: <span id="currentUserId">Loading...</span></div>
+                </div>
+            </div>
 
-      <!-- Total Balance -->
-      <div class="card total-balance">
-        <h3>Total Balance</h3>
-        <p class="balance">$128,420.55</p>
-      </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="nav-text">My Account</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-inbox"></i>
+                            <span class="nav-text">Inbox</span>
+                            <span class="nav-badge">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="nav-text">Deposit & Withdraw</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-history"></i>
+                            <span class="nav-text">Transactions</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
 
-      <!-- 三个资产卡（你缺失的） -->
-      <div class="asset-grid">
-        <div class="card asset-card">
-          <h4>E-wallet</h4>
-          <p>$32,500</p>
-        </div>
-        <div class="card asset-card">
-          <h4>Cash Equity</h4>
-          <p>$45,120</p>
-        </div>
-        <div class="card asset-card">
-          <h4>Coin ROI</h4>
-          <p>+18.6%</p>
-        </div>
-      </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <div class="page-title">
+                        <h1 id="dashboardTitle">Wallet Dashboard</h1>
+                        <p class="page-subtitle">Welcome back! Here's your financial overview</p>
+                    </div>
+                </div>
+                
+                <div class="top-bar-right">
+                    <div class="language-switcher">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="cn">中文</button>
+                    </div>
+                    
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-dropdown">
+                            <span class="user-email" id="topBarUserEmail">ID: Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </header>
 
-    </section>
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Balance Section -->
+                <div class="balance-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Total Balance</h2>
+                        <div class="balance-actions">
+                            <button class="refresh-btn" id="refreshBalance">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-cards">
+                        <div class="balance-card main">
+                            <div class="balance-header">
+                                <span class="balance-label">
+                                    <i class="fas fa-coins"></i> Total Assets (USD)
+                                </span>
+                                <div class="trend-indicator positive">
+                                    <i class="fas fa-arrow-up"></i> 0.48% today
+                                </div>
+                            </div>
+                            <div class="balance-amount" id="totalBalanceAmount">$ 48,562.45</div>
+                            <div class="balance-change">
+                                <span class="change-amount positive">+$ 236.75</span>
+                                <span class="change-period">(24h change)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="balance-card secondary">
+                            <div class="balance-header">
+                                <span class="balance-label">
+                                    <i class="fas fa-wallet"></i> Coin Assets
+                                </span>
+                            </div>
+                            <div class="asset-list">
+                                <div class="asset-item">
+                                    <div class="asset-info">
+                                        <div class="asset-icon" style="background: linear-gradient(135deg, #F7931A, #F2A900);">B</div>
+                                        <div class="asset-details">
+                                            <div class="asset-name">Bitcoin</div>
+                                            <div class="asset-symbol">BTC</div>
+                                        </div>
+                                    </div>
+                                    <div class="asset-amounts">
+                                        <div class="asset-amount">0.8245 BTC</div>
+                                        <div class="asset-value">$37,245.12</div>
+                                    </div>
+                                </div>
+                                <div class="asset-item">
+                                    <div class="asset-info">
+                                        <div class="asset-icon" style="background: linear-gradient(135deg, #627EEA, #8C8C8C);">E</div>
+                                        <div class="asset-details">
+                                            <div class="asset-name">Ethereum</div>
+                                            <div class="asset-symbol">ETH</div>
+                                        </div>
+                                    </div>
+                                    <div class="asset-amounts">
+                                        <div class="asset-amount">4.28 ETH</div>
+                                        <div class="asset-value">$10,325.40</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="balance-card secondary">
+                            <div class="balance-header">
+                                <span class="balance-label">
+                                    <i class="fas fa-dollar-sign"></i> USDT Balance
+                                </span>
+                                <i class="fab fa-usd"></i>
+                            </div>
+                            <div class="balance-amount">5,820.40 USDT</div>
+                            <div class="balance-value">≈ $ 5,820.40</div>
+                            <div class="balance-change">
+                                <span class="change-amount positive">+$ 1.25</span>
+                                <span class="change-period">(24h change)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- 右侧市场 -->
-    <section class="market-section">
-      <div class="card market-overview">
-        <h3>Market Overview</h3>
+                <!-- Wallet Actions -->
+                <div class="actions-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Wallet Actions</h2>
+                        <p class="section-subtitle">Send, receive or manage your funds</p>
+                    </div>
+                    
+                    <div class="actions-cards">
+                        <div class="action-card send">
+                            <div class="action-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <h3 class="action-title">Send</h3>
+                            <p class="action-desc">Send crypto to another wallet address</p>
+                            <button class="action-btn">
+                                <i class="fas fa-paper-plane"></i> Send Now
+                            </button>
+                        </div>
+                        
+                        <div class="action-card receive">
+                            <div class="action-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <h3 class="action-title">Receive</h3>
+                            <p class="action-desc">Generate your wallet address for receiving funds</p>
+                            <button class="action-btn" id="generateWalletLink">
+                                <i class="fas fa-link"></i> Generate Address
+                            </button>
+                            <div class="wallet-link-container">
+                                <div class="wallet-link-display" id="walletLinkDisplay">
+                                    Click "Generate Address" above
+                                </div>
+                                <button class="copy-btn" id="copyWalletLink">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="action-card exchange">
+                            <div class="action-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h3 class="action-title">Exchange</h3>
+                            <p class="action-desc">Swap between cryptocurrencies instantly</p>
+                            <button class="action-btn">
+                                <i class="fas fa-sync-alt"></i> Exchange Now
+                            </button>
+                        </div>
+                        
+                        <div class="action-card stake">
+                            <div class="action-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="action-title">Stake & Earn</h3>
+                            <p class="action-desc">Earn rewards by staking your cryptocurrencies</p>
+                            <button class="action-btn">
+                                <i class="fas fa-percentage"></i> Start Earning
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <input
-          type="text"
-          placeholder="Search coin..."
-          class="market-search"
-        />
+                <!-- Market Overview -->
+                <div class="market-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Market Overview</h2>
+                        <div class="market-filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Gainers</button>
+                            <button class="filter-btn">Losers</button>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="marketSearch" placeholder="Search cryptocurrencies...">
+                            </div>
+                        </div>
+                        <div class="refresh-info">
+                            <i class="fas fa-clock"></i>
+                            <span id="lastUpdated">Updated: Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="market-table-container">
+                        <table class="market-table">
+                            <thead>
+                                <tr>
+                                    <th class="sortable" data-sort="asset">
+                                        Asset <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th class="sortable" data-sort="price">
+                                        Price (USD) <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th class="sortable" data-sort="change">
+                                        24h Change <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>Market Cap</th>
+                                    <th>24h Volume</th>
+                                    <th>Trend</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marketTableBody">
+                                <tr>
+                                    <td colspan="7" class="loading-spinner">
+                                        <i class="fas fa-spinner fa-spin"></i> Loading market data...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity & Notifications -->
+                <div class="activities-container">
+                    <div class="activity-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Activity</h2>
+                            <a href="#" class="view-all">
+                                View All <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">Received Bitcoin</div>
+                                    <div class="activity-meta">From: 0x1a2b...3c4d • 2 hours ago</div>
+                                </div>
+                                <div class="activity-amount positive">+0.05 BTC</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon sent">
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">Sent Ethereum</div>
+                                    <div class="activity-meta">To: 0x5e6f...7g8h • 5 hours ago</div>
+                                </div>
+                                <div class="activity-amount negative">-2.1 ETH</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">Exchange Completed</div>
+                                    <div class="activity-meta">BTC → ETH • Yesterday</div>
+                                </div>
+                                <div class="activity-amount neutral">Exchange</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">Staking Rewards</div>
+                                    <div class="activity-meta">ADA Staking • 2 days ago</div>
+                                </div>
+                                <div class="activity-amount positive">+42.5 ADA</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Pending Transactions</h2>
+                            <span class="pending-count">3 pending</span>
+                        </div>
+                        
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon pending">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">BTC Transfer</div>
+                                    <div class="activity-meta">To: 0x8h9i...0j1k • Pending approval</div>
+                                </div>
+                                <div class="activity-amount">-0.1 BTC</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon pending">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">ETH → USDT Exchange</div>
+                                    <div class="activity-meta">Processing • 15 min ago</div>
+                                </div>
+                                <div class="activity-amount">Exchange</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon pending">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">ADA Staking Request</div>
+                                    <div class="activity-meta">Awaiting confirmation • 1 hour ago</div>
+                                </div>
+                                <div class="activity-amount">+1,000 ADA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Asset</th>
-              <th>Price (USD)</th>
-              <th>24h</th>
-              <th>Chart</th>
-            </tr>
-          </thead>
-          <tbody id="marketTable"></tbody>
-        </table>
-      </div>
-    </section>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-  </main>
-
-</div>
-
-<script src="dashboard.js"></script>
+    <script>
+        // Dashboard JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard initialized');
+            
+            // Get user from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const user = urlParams.get('user');
+            
+            if (!user) {
+                document.getElementById('noUserWarning').style.display = 'flex';
+                document.querySelector('.dashboard-container').style.display = 'none';
+                return;
+            }
+            
+            // Set user info
+            document.getElementById('currentUserName').textContent = user;
+            document.getElementById('currentUserId').textContent = user;
+            document.getElementById('topBarUserEmail').textContent = `ID: ${user}`;
+            
+            // Initialize modules
+            initWalletActions();
+            initMarketData();
+            initUIInteractions();
+            initLanguageSwitcher();
+            updateLastUpdated();
+        });
+        
+        // Wallet Actions
+        function initWalletActions() {
+            const generateBtn = document.getElementById('generateWalletLink');
+            const copyBtn = document.getElementById('copyWalletLink');
+            
+            if (generateBtn) {
+                generateBtn.addEventListener('click', function() {
+                    const address = generateWalletAddress();
+                    document.getElementById('walletLinkDisplay').textContent = address;
+                    showToast('Wallet address generated!', 'success');
+                });
+            }
+            
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    const address = document.getElementById('walletLinkDisplay').textContent;
+                    if (address && !address.includes('Click')) {
+                        navigator.clipboard.writeText(address)
+                            .then(() => showToast('Address copied!', 'success'))
+                            .catch(() => showToast('Failed to copy', 'error'));
+                    }
+                });
+            }
+        }
+        
+        function generateWalletAddress() {
+            const chars = '0123456789abcdef';
+            let address = '0x';
+            for (let i = 0; i < 40; i++) {
+                address += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return address;
+        }
+        
+        // Market Data
+        const marketData = [
+            { asset: 'Bitcoin', symbol: 'BTC', price: 45231.50, change: 2.34, marketCap: '886.2B', volume: '32.5B' },
+            { asset: 'Ethereum', symbol: 'ETH', price: 2415.75, change: 1.56, marketCap: '290.1B', volume: '18.2B' },
+            { asset: 'Cardano', symbol: 'ADA', price: 0.48, change: -0.23, marketCap: '16.8B', volume: '0.8B' },
+            { asset: 'Solana', symbol: 'SOL', price: 102.30, change: 5.67, marketCap: '44.2B', volume: '3.2B' },
+            { asset: 'Polkadot', symbol: 'DOT', price: 6.75, change: 0.89, marketCap: '8.7B', volume: '0.4B' },
+            { asset: 'Chainlink', symbol: 'LINK', price: 14.20, change: -1.25, marketCap: '8.3B', volume: '0.5B' }
+        ];
+        
+        function initMarketData() {
+            const tbody = document.getElementById('marketTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            marketData.forEach(coin => {
+                const row = document.createElement('tr');
+                const changeClass = coin.change >= 0 ? 'positive' : 'negative';
+                const changeIcon = coin.change >= 0 ? '▲' : '▼';
+                
+                row.innerHTML = `
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #0ea5e9, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                ${coin.symbol.charAt(0)}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">${coin.asset}</div>
+                                <div style="color: #64748b; font-size: 12px;">${coin.symbol}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="font-weight: 600;">$${coin.price.toLocaleString()}</td>
+                    <td class="${changeClass}" style="font-weight: 600;">
+                        ${changeIcon} ${Math.abs(coin.change).toFixed(2)}%
+                    </td>
+                    <td>${coin.marketCap}</td>
+                    <td>${coin.volume}</td>
+                    <td>
+                        <div style="width: 80px; height: 24px; background: ${coin.change >= 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; border-radius: 4px; overflow: hidden;">
+                            <div style="width: 100%; height: 100%; position: relative;">
+                                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: ${coin.change >= 0 ? '#10b981' : '#ef4444'}; opacity: 0.3;"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="view-btn" onclick="viewAsset('${coin.symbol}')" style="padding: 6px 12px; font-size: 12px; background: rgba(30, 41, 59, 0.8); border: 1px solid var(--card-border); color: var(--light); border-radius: var(--radius-md); cursor: pointer;">
+                            View
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // UI Interactions
+        function initUIInteractions() {
+            // Market search
+            const searchInput = document.getElementById('marketSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const term = e.target.value.toLowerCase();
+                    const rows = document.querySelectorAll('#marketTableBody tr');
+                    
+                    rows.forEach(row => {
+                        const text = row.textContent.toLowerCase();
+                        row.style.display = text.includes(term) ? '' : 'none';
+                    });
+                });
+            }
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Sort headers
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', function() {
+                    showToast('Sorting feature will be enhanced in Phase 2', 'info');
+                });
+            });
+            
+            // Logout button
+            document.querySelector('.logout-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+        
+        // Language Switcher
+        function initLanguageSwitcher() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const lang = this.dataset.lang;
+                    showToast(lang === 'cn' ? '切换到中文' : 'Switched to English', 'info');
+                });
+            });
+        }
+        
+        // Update timestamp
+        function updateLastUpdated() {
+            const element = document.getElementById('lastUpdated');
+            if (element) {
+                const now = new Date();
+                const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                element.textContent = `Updated: ${time}`;
+            }
+        }
+        
+        // Toast notifications
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+            
+            toast.innerHTML = `
+                <span style="font-size: 18px;">${icons[type] || icons.info}</span>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // View asset details
+        function viewAsset(symbol) {
+            showToast(`Viewing details for ${symbol}...`, 'info');
+        }
+        
+        // Auto-refresh
+        setInterval(() => {
+            updateLastUpdated();
+        }, 30000);
+    </script>
 </body>
 </html>
