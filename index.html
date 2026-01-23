@@ -1,54 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>虚拟货币钱包</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoWallet Pro | Secure Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --secondary: #f59e0b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --card-bg: rgba(15, 23, 42, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 20%);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            color: var(--gray);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: var(--gray);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .remember-me input {
+            accent-color: var(--primary);
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: var(--secondary);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button i {
+            margin-right: 8px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .social-button {
+            padding: 14px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--light);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-button:hover {
+            background: rgba(30, 41, 59, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .social-button.google {
+            color: #ef4444;
+        }
+
+        .social-button.metamask {
+            color: #f59e0b;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .security-notice {
+            background: rgba(14, 165, 233, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .security-notice i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 24px;
+            }
+            
+            .social-login {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- 粒子背景 -->
-  <canvas id="particleCanvas"></canvas>
-
-  <!-- 半透明旋转 Bitcoin Logo -->
-  <div class="bg-logo"></div>
-
-  <div class="page-container">
-    <!-- 左侧文案 -->
-    <div class="about-wrapper" id="aboutWrapper">
-      <h2 class="about-title" id="aboutTitle">About Binance.easywallet</h2>
-      <p class="about-text" id="aboutText">
-        Unlock Financial Freedom, Embrace the On-Chain Future.<br><br>
-        Cryptocurrencies empower everyone to participate fairly in the economy.<br>
-        Binance.easywallet is on a mission to enhance financial autonomy for over 500 million users.<br>
-        We are transforming traditional finance, providing a secure and trusted platform for individuals and institutions to seamlessly access digital assets — trading, staking, custody, payments, and fast, free global transfers.<br>
-        We support on-chain innovation, collaborating with developers and the global community to promote a responsible crypto ecosystem, enabling everyone to benefit from the blockchain revolution.
-      </p>
-    </div>
-
-    <!-- 右侧登录框 -->
-    <div class="login-wrapper">
-      <div class="language-switch">
-        <button data-lang="en">EN</button>
-        <button data-lang="zh">中文</button>
-      </div>
-
-      <div class="login-container">
-        <h2 id="pageTitle">虚拟货币钱包</h2>
-        <input type="text" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button id="loginBtn">Login</button>
-        <div class="links">
-          <button id="registerBtn">Register</button>
-          <button id="forgotBtn">Forgot Password</button>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="logo-text">CryptoWallet Pro</div>
+            </div>
+            <p class="tagline">Secure, Fast & Professional Crypto Management</p>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <script src="./particles.js"></script>
-  <script src="./script.js"></script>
-  <script src="./tilt.js"></script>
+        <div class="login-card">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-input" placeholder="name@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="remember-me">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-button">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+
+                <div class="divider">Or continue with</div>
+
+                <div class="social-login">
+                    <button type="button" class="social-button google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button type="button" class="social-button metamask">
+                        <i class="fab fa-ethereum"></i> MetaMask
+                    </button>
+                </div>
+
+                <p class="signup-link">
+                    Don't have an account?
+                    <a href="#" onclick="alert('Sign up feature will be implemented in Phase 3')">Create account</a>
+                </p>
+            </form>
+
+            <div class="security-notice">
+                <i class="fas fa-shield-alt"></i>
+                Your data is secured with enterprise-grade encryption. Never share your credentials.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate login process
+            const loginBtn = this.querySelector('.login-button');
+            const originalText = loginBtn.innerHTML;
+            
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+            loginBtn.disabled = true;
+            
+            // Redirect to dashboard after delay
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        });
+
+        // Social login buttons
+        document.querySelectorAll('.social-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const type = this.classList.contains('google') ? 'Google' : 'MetaMask';
+                alert(`${type} authentication will be implemented in Phase 3`);
+            });
+        });
+    </script>
 </body>
 </html>
