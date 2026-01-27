@@ -1,22 +1,120 @@
-/* ===== 核心变量与重置 ===== */
-:root { --primary: #0ea5e9; --secondary: #f59e0b; --dark: #0f172a; --darker: #020617; --light: #f8fafc; --success: #10b981; --danger: #ef4444; --radius-md: 12px; }
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { background: var(--darker); color: var(--light); min-height: 100vh; }
+/* ===== CSS RESET & GLOBAL STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
 
-/* ===== 侧边栏布局 (关键！必须一致) ===== */
+:root {
+    --primary: #0ea5e9;
+    --primary-dark: #0284c7;
+    --secondary: #f59e0b;
+    --dark: #0f172a;
+    --darker: #020617;
+    --light: #f8fafc;
+    --gray: #64748b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --card-bg: rgba(30, 41, 59, 0.8);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+body {
+    background: var(--darker);
+    color: var(--light);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===== DASHBOARD LAYOUT ===== */
 .dashboard-container { display: flex; min-height: 100vh; }
-.sidebar { width: 280px; background: rgba(15, 23, 42, 0.95); border-right: 1px solid rgba(255,255,255,0.1); flex-direction: column; position: fixed; height: 100vh; }
-.main-content { flex: 1; margin-left: 280px; min-height: 100vh; }
-.sidebar-header, .user-profile { padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+/* ===== SIDEBAR (核心布局，必须一致) ===== */
+.sidebar {
+    width: 280px;
+    background: rgba(15, 23, 42, 0.95);
+    border-right: 1px solid var(--card-border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+}
+.sidebar-header { padding: 24px; border-bottom: 1px solid var(--card-border); }
 .logo { display: flex; align-items: center; gap: 12px; }
-/* ... (包含你现有dashboard中的所有侧边栏、顶部栏样式，确保完全一致) ... */
+.logo-icon {
+    width: 40px; height: 40px; background: var(--gradient-primary); border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; color: white;
+    box-shadow: var(--shadow-md);
+}
+.logo-text {
+    font-size: 20px; font-weight: 700;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.user-profile { padding: 24px; border-bottom: 1px solid var(--card-border); display: flex; align-items: center; gap: 12px; }
+.avatar {
+    width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: white;
+}
+.user-name { font-weight: 600; font-size: 16px; }
+.user-email { color: var(--gray); font-size: 14px; }
+.sidebar-nav { flex: 1; padding: 20px 0; }
+.sidebar-nav ul { list-style: none; padding: 0 16px; }
+.nav-item { margin-bottom: 4px; border-radius: var(--radius-md); transition: all 0.3s ease; }
+.nav-item.active { background: rgba(14, 165, 233, 0.1); }
+.nav-item:hover:not(.active) { background: rgba(255, 255, 255, 0.05); }
+.nav-link {
+    display: flex; align-items: center; padding: 12px 16px; color: var(--light);
+    text-decoration: none; font-size: 15px; gap: 12px;
+}
+.nav-link i { width: 20px; text-align: center; }
+.nav-text { flex: 1; }
+.nav-badge {
+    background: var(--success); color: white; font-size: 11px;
+    padding: 2px 8px; border-radius: 10px; font-weight: 600;
+}
 
-/* ===== 几个最常用的组件 ===== */
-.card { background: rgba(30,41,59,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 24px; }
-.btn { padding: 12px 24px; border-radius: var(--radius-md); font-weight: 600; border: none; cursor: pointer; }
-.btn-primary { background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: white; }
+/* ===== MAIN CONTENT ===== */
+.main-content { flex: 1; margin-left: 280px; min-height: 100vh; }
 
-/* ===== 确保移动端侧边栏可切换 ===== */
+/* ===== TOP BAR ===== */
+.top-bar {
+    padding: 20px 30px; background: var(--card-bg); border-bottom: 1px solid var(--card-border);
+    display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 90;
+}
+.page-title h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.page-subtitle { color: var(--gray); font-size: 14px; }
+.top-bar-right { display: flex; align-items: center; gap: 20px; }
+.language-switcher {
+    display: flex; gap: 8px; background: rgba(30, 41, 59, 0.6);
+    padding: 6px; border-radius: var(--radius-md);
+}
+.lang-btn {
+    padding: 6px 16px; border: none; background: transparent; color: var(--gray);
+    border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s;
+}
+.lang-btn.active { background: var(--primary); color: white; }
+.user-menu { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.user-avatar {
+    width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+.logout-btn {
+    background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--danger); padding: 10px; border-radius: var(--radius-md); cursor: pointer;
+    transition: all 0.3s;
+}
+.logout-btn:hover { background: rgba(239, 68, 68, 0.2); }
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1200px) {
     .main-content { margin-left: 0; }
     .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
