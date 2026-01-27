@@ -1,12 +1,16 @@
-// 唯一任务：根据当前页面文件名，高亮侧边栏对应菜单
+// 侧边栏自动激活逻辑
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. 获取当前页面名称，如 'dashboard.html' -> 'dashboard'
     const path = window.location.pathname;
-    let pageName = 'dashboard'; // 默认
+    let pageName = 'dashboard';
+    
     if (path.includes('.html')) {
         pageName = path.split('/').pop().replace('.html', '');
+        pageName = pageName.split('#')[0].split('?')[0];
     }
-    // 2. 定义页面与菜单ID的对应关系 (菜单ID在你的HTML里)
+    
+    console.log('当前页面:', pageName);
+    
+    // 页面到导航ID的映射 (必须和HTML中的id一致)
     const pageToNavId = {
         'dashboard': 'nav-dashboard',
         'transactions': 'nav-transactions',
@@ -15,11 +19,16 @@ document.addEventListener('DOMContentLoaded', function() {
         'inbox': 'nav-inbox',
         'account': 'nav-account'
     };
-    // 3. 移除所有激活状态，然后激活当前的
-    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+    
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
     const activeNavId = pageToNavId[pageName];
     if (activeNavId) {
-        const element = document.getElementById(activeNavId);
-        if (element) element.classList.add('active');
+        const navElement = document.getElementById(activeNavId);
+        if (navElement) {
+            navElement.classList.add('active');
+        }
     }
 });
